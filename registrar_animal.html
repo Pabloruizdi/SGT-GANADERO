@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SGT-Ganadero - Registrar Animal</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .bg-ganadero-dark { background-color: #0d3b2e; }
+        .text-ganadero-dark { color: #0d3b2e; }
+        .active-nav { background-color: #165c48; }
+    </style>
+</head>
+<body class="bg-gray-50 h-screen flex font-sans overflow-hidden">
+
+    <div id="alertaSistema" class="fixed top-8 right-8 bg-white border-l-4 border-[#0d3b2e] shadow-xl rounded-r-md px-6 py-4 flex items-center gap-4 transition-all duration-500 transform translate-x-[150%] opacity-0 z-50">
+        <div class="bg-green-100 p-1.5 rounded-full flex-shrink-0">
+            <svg class="w-5 h-5 text-[#0d3b2e]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+        </div>
+        <div>
+            <h4 class="text-gray-800 font-bold text-sm">Registro Exitoso</h4>
+            <p class="text-gray-500 text-xs">El animal fue guardado en el sistema local.</p>
+        </div>
+    </div>
+
+    <aside class="w-64 bg-ganadero-dark text-white flex flex-col shadow-lg z-10 flex-shrink-0">
+        <div class="p-6">
+            <h2 class="text-2xl font-bold tracking-wider">SGT-Ganadero</h2>
+        </div>
+        
+        <div class="px-6 py-4 flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 bg-gray-300 rounded-full overflow-hidden flex-shrink-0">
+                <img src="https://ui-avatars.com/api/?name=Admin&background=random" alt="Admin" class="w-full h-full object-cover">
+            </div>
+            <div>
+                <p class="text-sm font-semibold">Administrador</p>
+                <p class="text-xs text-gray-400">Rancho Central</p>
+            </div>
+        </div>
+
+        <nav class="flex-1 px-4 space-y-2">
+            <a href="dashboard_admin.html" class="flex items-center gap-3 px-4 py-3 active-nav rounded-lg text-sm font-medium transition-colors">
+                <span>🐾</span> Hacienda
+            </a>
+            <a href="parcelas.html" class="flex items-center gap-3 px-4 py-3 hover:bg-white/10 rounded-lg text-sm font-medium transition-colors text-gray-300 hover:text-white">
+                <span>📍</span> Parcelas
+            </a>
+            <a href="sanidad.html" class="flex items-center gap-3 px-4 py-3 hover:bg-white/10 rounded-lg text-sm font-medium transition-colors text-gray-300 hover:text-white">
+                <span>⚕️</span> Sanidad
+            </a>
+            <a href="reportes.html" class="flex items-center gap-3 px-4 py-3 hover:bg-white/10 rounded-lg text-sm font-medium transition-colors text-gray-300 hover:text-white">
+                <span>📊</span> Reportes
+            </a>
+        </nav>
+
+        <div class="p-4 space-y-2 border-t border-white/10">
+            <a href="#" class="flex items-center gap-3 px-4 py-2 hover:bg-white/10 rounded-lg text-sm text-gray-300 transition-colors">
+                <span>⚙️</span> Configuración
+            </a>
+            <button onclick="logout()" class="w-full flex items-center gap-3 px-4 py-2 hover:bg-red-500/20 hover:text-red-300 rounded-lg text-sm text-gray-300 transition-colors text-left">
+                <span>🚪</span> Cerrar Sesión
+            </button>
+        </div>
+    </aside>
+
+    <main class="flex-1 flex flex-col overflow-hidden">
+        
+        <header class="bg-white border-b border-gray-200 h-16 flex items-center justify-between px-8 shadow-sm">
+            <div class="flex items-center gap-2 text-sm text-gray-500">
+                <a href="dashboard_admin.html" class="hover:text-ganadero-dark transition-colors">Hacienda</a> 
+                <span>/</span> 
+                <span class="text-gray-800 font-semibold">Registrar Animal</span>
+            </div>
+            
+            <div class="flex items-center gap-4">
+                <button class="text-gray-500 hover:text-gray-800">🔔</button>
+            </div>
+        </header>
+
+        <div class="flex-1 overflow-auto p-8">
+            <div class="max-w-4xl mx-auto">
+                
+                <div class="mb-6">
+                    <a href="dashboard_admin.html" class="inline-flex items-center gap-2 text-sm font-medium text-gray-600 hover:text-ganadero-dark transition-colors bg-white px-4 py-2 rounded-lg border border-gray-200 shadow-sm hover:shadow">
+                        <span class="text-lg leading-none">←</span> Volver al listado
+                    </a>
+                </div>
+
+                <div class="mb-8">
+                    <h1 class="text-3xl font-bold text-gray-800">Registrar Animal</h1>
+                    <p class="text-gray-500 mt-1">Ingrese los datos para el alta de un nuevo ejemplar en el sistema.</p>
+                </div>
+
+                <div class="bg-white rounded-lg shadow-sm border border-gray-100 p-8">
+                    <form onsubmit="simularGuardado(event)" class="grid grid-cols-2 gap-8">
+                        
+                        <div class="space-y-6">
+                            <div>
+                                <label class="block text-sm font-bold text-gray-700 mb-2">ID de Caravana <span class="text-red-500">*</span></label>
+                                <input type="text" required placeholder="Ej: AR-123456" class="w-full border border-gray-300 rounded p-3 text-sm focus:border-[#0d3b2e] focus:ring-1 focus:ring-[#0d3b2e] outline-none transition-colors">
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-bold text-gray-700 mb-2">Sexo <span class="text-red-500">*</span></label>
+                                <div class="flex gap-4">
+                                    <label class="flex items-center gap-2 cursor-pointer">
+                                        <input type="radio" name="sexo" class="accent-[#0d3b2e] w-4 h-4" checked> <span class="text-sm">Macho</span>
+                                    </label>
+                                    <label class="flex items-center gap-2 cursor-pointer">
+                                        <input type="radio" name="sexo" class="accent-[#0d3b2e] w-4 h-4"> <span class="text-sm">Hembra</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-bold text-gray-700 mb-2">Origen <span class="text-red-500">*</span></label>
+                                <div class="flex gap-4">
+                                    <label class="flex items-center gap-2 cursor-pointer">
+                                        <input type="radio" name="origen" class="accent-[#0d3b2e] w-4 h-4" checked> <span class="text-sm">Nacimiento propio</span>
+                                    </label>
+                                    <label class="flex items-center gap-2 cursor-pointer">
+                                        <input type="radio" name="origen" class="accent-[#0d3b2e] w-4 h-4"> <span class="text-sm">Compra externa</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-bold text-gray-700 mb-2">Parcela actual</label>
+                                <select class="w-full border border-gray-300 rounded p-3 text-sm focus:border-[#0d3b2e] outline-none bg-white">
+                                    <option>Seleccione una parcela</option>
+                                    <option>P-204 (Alfalfa Premium)</option>
+                                    <option>P-205 (Sorgo)</option>
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="space-y-6">
+                            <div>
+                                <label class="block text-sm font-bold text-gray-700 mb-2">Raza <span class="text-red-500">*</span></label>
+                                <input type="text" required placeholder="Ej: Angus" class="w-full border border-gray-300 rounded p-3 text-sm focus:border-[#0d3b2e] focus:ring-1 focus:ring-[#0d3b2e] outline-none transition-colors">
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-bold text-gray-700 mb-2">Categoría <span class="text-red-500">*</span></label>
+                                <div class="flex gap-4">
+                                    <label class="flex items-center gap-2 cursor-pointer">
+                                        <input type="radio" name="cat" class="accent-[#0d3b2e] w-4 h-4" checked> <span class="text-sm">Cría</span>
+                                    </label>
+                                    <label class="flex items-center gap-2 cursor-pointer">
+                                        <input type="radio" name="cat" class="accent-[#0d3b2e] w-4 h-4"> <span class="text-sm">Recría</span>
+                                    </label>
+                                    <label class="flex items-center gap-2 cursor-pointer">
+                                        <input type="radio" name="cat" class="accent-[#0d3b2e] w-4 h-4"> <span class="text-sm">Invernada</span>
+                                    </label>
+                                </div>
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-bold text-gray-700 mb-2">ID Caravana Madre</label>
+                                <input type="text" placeholder="ID de la madre" class="w-full border border-gray-300 rounded p-3 text-sm focus:border-[#0d3b2e] focus:ring-1 focus:ring-[#0d3b2e] outline-none transition-colors bg-gray-50">
+                            </div>
+
+                            <div>
+                                <label class="block text-sm font-bold text-gray-700 mb-2">Fecha de ingreso</label>
+                                <input type="date" value="2026-06-25" class="w-full border border-gray-300 rounded p-3 text-sm focus:border-[#0d3b2e] outline-none">
+                            </div>
+                        </div>
+
+                        <div class="col-span-2 flex justify-end gap-4 mt-6 pt-6 border-t border-gray-100">
+                            <a href="dashboard_admin.html" class="px-6 py-2 border border-gray-300 text-gray-700 rounded font-medium hover:bg-gray-50 transition-colors">
+                                CANCELAR
+                            </a>
+                            <button type="submit" class="px-8 py-2 bg-ganadero-dark text-white rounded font-medium hover:bg-[#0a2e24] transition-colors shadow-md">
+                                GUARDAR
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function simularGuardado(e) {
+            e.preventDefault(); 
+            
+            // 1. Buscamos el div de la alerta
+            const alerta = document.getElementById('alertaSistema');
+            
+            // 2. Le quitamos las clases que lo ocultan y lo empujan fuera de la pantalla
+            alerta.classList.remove('translate-x-[150%]', 'opacity-0');
+            alerta.classList.add('translate-x-0', 'opacity-100');
+            
+            // 3. Esperamos 2000 milisegundos (2 segundos) y luego redirigimos al dashboard
+            setTimeout(() => {
+                window.location.href = "dashboard_admin.html";
+            }, 2000);
+        }
+        
+        function logout() {
+            sessionStorage.removeItem('sgt_role');
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>

@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SGT-Ganadero - Dashboard Administrador</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .bg-ganadero-dark { background-color: #0d3b2e; }
+        .text-ganadero-dark { color: #0d3b2e; }
+        .bg-ganadero-light { background-color: #f7f6f2; }
+        .active-nav { background-color: #165c48; }
+    </style>
+</head>
+<body class="bg-gray-50 h-screen flex font-sans">
+
+    <aside class="w-64 bg-ganadero-dark text-white flex flex-col shadow-lg z-10">
+        <div class="p-6">
+            <h2 class="text-2xl font-bold tracking-wider">SGT-Ganadero</h2>
+        </div>
+        
+        <div class="px-6 py-4 flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 bg-gray-300 rounded-full overflow-hidden flex-shrink-0">
+                <img src="https://ui-avatars.com/api/?name=Admin&background=random" alt="Admin" class="w-full h-full object-cover">
+            </div>
+            <div>
+                <p class="text-sm font-semibold">Administrador</p>
+                <p class="text-xs text-gray-400">Rancho Central</p>
+            </div>
+        </div>
+
+        <nav class="flex-1 px-4 space-y-2">
+            <a href="dashboard_admin.html" class="flex items-center gap-3 px-4 py-3 active-nav rounded-lg text-sm font-medium transition-colors">
+                <span>🐾</span> Hacienda
+            </a>
+            <a href="parcelas.html" class="flex items-center gap-3 px-4 py-3 hover:bg-white/10 rounded-lg text-sm font-medium transition-colors text-gray-300 hover:text-white">
+                <span>📍</span> Parcelas
+            </a>
+            <a href="sanidad.html" class="flex items-center gap-3 px-4 py-3 hover:bg-white/10 rounded-lg text-sm font-medium transition-colors text-gray-300 hover:text-white">
+                <span>⚕️</span> Sanidad
+            </a>
+            <a href="reportes.html" class="flex items-center gap-3 px-4 py-3 hover:bg-white/10 rounded-lg text-sm font-medium transition-colors text-gray-300 hover:text-white">
+                <span>📊</span> Reportes
+            </a>
+        </nav>
+
+        <div class="p-4 space-y-2 border-t border-white/10">
+            <a href="#" class="flex items-center gap-3 px-4 py-2 hover:bg-white/10 rounded-lg text-sm text-gray-300 transition-colors">
+                <span>⚙️</span> Configuración
+            </a>
+            <button onclick="logout()" class="w-full flex items-center gap-3 px-4 py-2 hover:bg-red-500/20 hover:text-red-300 rounded-lg text-sm text-gray-300 transition-colors text-left">
+                <span>🚪</span> Cerrar Sesión
+            </button>
+        </div>
+    </aside>
+
+    <main class="flex-1 flex flex-col overflow-hidden">
+        
+        <header class="bg-white border-b border-gray-200 h-16 flex items-center justify-end px-8 shadow-sm">
+            <div class="flex items-center gap-4">
+                <div class="relative">
+                    <input type="text" placeholder="Buscar ID Caravana..." class="bg-gray-100 border-none text-sm rounded-full pl-10 pr-4 py-2 focus:ring-2 focus:ring-green-800 outline-none w-64">
+                    <span class="absolute left-3 top-2.5 text-gray-400">🔍</span>
+                </div>
+                <button class="text-gray-500 hover:text-gray-800">🔔</button>
+            </div>
+        </header>
+
+        <div class="flex-1 overflow-auto p-8">
+            
+            <div class="flex justify-between items-center mb-6 bg-white p-4 rounded-lg shadow-sm border border-gray-100">
+                
+                <div class="flex items-center gap-4">
+                    <span class="text-sm text-gray-600 font-medium">≡ Filtros:</span>
+                    
+                    <select id="filtroRaza" onchange="filtrarTabla()" class="bg-gray-50 border border-gray-200 text-gray-700 text-sm rounded-md focus:ring-green-800 focus:border-green-800 block p-2 outline-none">
+                        <option value="ALL">Todas las Razas</option>
+                        <option value="Angus">Angus</option>
+                        <option value="Hereford">Hereford</option>
+                        <option value="Brangus">Brangus</option>
+                    </select>
+
+                    <select id="filtroCategoria" onchange="filtrarTabla()" class="bg-gray-50 border border-gray-200 text-gray-700 text-sm rounded-md focus:ring-green-800 focus:border-green-800 block p-2 outline-none">
+                        <option value="ALL">Todas las Categorías</option>
+                        <option value="Novillo">Novillo</option>
+                        <option value="Vaquillona">Vaquillona</option>
+                        <option value="Vaca">Vaca</option>
+                        <option value="Toro">Toro</option>
+                        <option value="Ternero">Ternero</option>
+                    </select>
+
+                    <select id="filtroEstado" onchange="filtrarTabla()" class="bg-gray-50 border border-gray-200 text-gray-700 text-sm rounded-md focus:ring-green-800 focus:border-green-800 block p-2 outline-none">
+                        <option value="ALL">Todos los Estados</option>
+                        <option value="ACTIVO">Activo</option>
+                        <option value="BAJA">Baja</option>
+                    </select>
+                </div>
+
+                <a href="registrar_animal.html" class="bg-ganadero-dark text-white px-5 py-2 rounded shadow hover:bg-green-800 transition-colors text-sm font-medium flex items-center gap-2">
+                    <span>+</span> Registrar Animal
+                </a>
+            </div>
+
+            <div class="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-gray-50 text-gray-500 text-xs uppercase tracking-wider border-b border-gray-200">
+                            <th class="p-4 font-semibold">ID Caravana</th>
+                            <th class="p-4 font-semibold">Raza</th>
+                            <th class="p-4 font-semibold">Sexo</th>
+                            <th class="p-4 font-semibold">Categoría</th>
+                            <th class="p-4 font-semibold">Estado</th>
+                            <th class="p-4 font-semibold text-center">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody id="tablaHacienda" class="text-sm divide-y divide-gray-100">
+                        <tr class="hover:bg-gray-50 transition-colors fila-animal">
+                            <td class="p-4 font-bold text-gray-800">AR-99321</td>
+                            <td class="p-4 text-gray-600 celda-raza">Angus</td>
+                            <td class="p-4 text-gray-600">Macho</td>
+                            <td class="p-4 text-gray-600 celda-categoria">Novillo</td>
+                            <td class="p-4 celda-estado"><span class="bg-ganadero-dark text-white text-xs px-2 py-1 rounded-full font-bold">ACTIVO</span></td>
+                            <td class="p-4 text-center space-x-2 text-gray-400">
+                                <button class="hover:text-blue-500" title="Historial">⏱️</button>
+                                <button class="hover:text-yellow-500" title="Editar">✏️</button>
+                                <button class="hover:text-red-500" title="Dar de Baja">🚫</button>
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 transition-colors fila-animal">
+                            <td class="p-4 font-bold text-gray-800">AR-99325</td>
+                            <td class="p-4 text-gray-600 celda-raza">Hereford</td>
+                            <td class="p-4 text-gray-600">Hembra</td>
+                            <td class="p-4 text-gray-600 celda-categoria">Vaquillona</td>
+                            <td class="p-4 celda-estado"><span class="bg-ganadero-dark text-white text-xs px-2 py-1 rounded-full font-bold">ACTIVO</span></td>
+                            <td class="p-4 text-center space-x-2 text-gray-400">
+                                <button class="hover:text-blue-500">⏱️</button>
+                                <button class="hover:text-yellow-500">✏️</button>
+                                <button class="hover:text-red-500">🚫</button>
+                            </td>
+                        </tr>
+                        <tr class="bg-gray-50 opacity-60 fila-animal">
+                            <td class="p-4 font-bold text-gray-500 line-through">AR-88120</td>
+                            <td class="p-4 text-gray-500 celda-raza">Brangus</td>
+                            <td class="p-4 text-gray-500">Macho</td>
+                            <td class="p-4 text-gray-500 celda-categoria">Toro</td>
+                            <td class="p-4 celda-estado"><span class="bg-gray-300 text-gray-600 text-xs px-2 py-1 rounded-full font-bold">BAJA</span></td>
+                            <td class="p-4 text-center space-x-2 text-gray-300">
+                                <button class="hover:text-blue-400">⏱️</button>
+                                <span>-</span>
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 transition-colors fila-animal">
+                            <td class="p-4 font-bold text-gray-800">AR-99401</td>
+                            <td class="p-4 text-gray-600 celda-raza">Angus</td>
+                            <td class="p-4 text-gray-600">Hembra</td>
+                            <td class="p-4 text-gray-600 celda-categoria">Vaca</td>
+                            <td class="p-4 celda-estado"><span class="bg-ganadero-dark text-white text-xs px-2 py-1 rounded-full font-bold">ACTIVO</span></td>
+                            <td class="p-4 text-center space-x-2 text-gray-400">
+                                <button class="hover:text-blue-500">⏱️</button>
+                                <button class="hover:text-yellow-500">✏️</button>
+                                <button class="hover:text-red-500">🚫</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+                <div class="bg-gray-50 p-4 border-t border-gray-200 text-xs text-gray-500 flex justify-between items-center">
+                    <span>Mostrando resultados filtrados</span>
+                    <div class="space-x-1">
+                        <button class="px-2 py-1 bg-white border rounded text-gray-400">&lt;</button>
+                        <button class="px-2 py-1 bg-ganadero-dark text-white rounded">1</button>
+                        <button class="px-2 py-1 bg-white border rounded hover:bg-gray-100">2</button>
+                        <button class="px-2 py-1 bg-white border rounded hover:bg-gray-100">3</button>
+                        <button class="px-2 py-1 bg-white border rounded hover:bg-gray-100">&gt;</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        // Lógica de Filtros para el Prototipo
+        function filtrarTabla() {
+            // 1. Obtener lo que el usuario seleccionó
+            const razaSeleccionada = document.getElementById('filtroRaza').value.toUpperCase();
+            const categoriaSeleccionada = document.getElementById('filtroCategoria').value.toUpperCase();
+            const estadoSeleccionado = document.getElementById('filtroEstado').value.toUpperCase();
+
+            // 2. Obtener todas las filas de la tabla de animales
+            const filas = document.querySelectorAll('.fila-animal');
+
+            // 3. Recorrer cada fila y decidir si se muestra o se oculta
+            filas.forEach(fila => {
+                // Leemos el texto de las celdas específicas
+                const razaFila = fila.querySelector('.celda-raza').textContent.toUpperCase().trim();
+                const categoriaFila = fila.querySelector('.celda-categoria').textContent.toUpperCase().trim();
+                const estadoFila = fila.querySelector('.celda-estado').textContent.toUpperCase().trim();
+
+                // Comprobamos si coinciden (si es "ALL", pasa automáticamente)
+                const cumpleRaza = (razaSeleccionada === 'ALL' || razaFila === razaSeleccionada);
+                const cumpleCategoria = (categoriaSeleccionada === 'ALL' || categoriaFila === categoriaSeleccionada);
+                const cumpleEstado = (estadoSeleccionado === 'ALL' || estadoFila === estadoSeleccionado);
+
+                // Si cumple todos los filtros, la mostramos. Si no, la ocultamos.
+                if (cumpleRaza && cumpleCategoria && cumpleEstado) {
+                    fila.style.display = ''; // Muestra la fila
+                } else {
+                    fila.style.display = 'none'; // Oculta la fila
+                }
+            });
+        }
+
+        // Verificación simple de sesión
+        if(!sessionStorage.getItem('sgt_role')) {
+            // Comentado para que puedas probar el HTML directamente sin que te redirija
+            // window.location.href = 'index.html'; 
+        }
+
+        function logout() {
+            sessionStorage.removeItem('sgt_role');
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>

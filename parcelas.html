@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SGT-Ganadero - Parcelas y Forraje</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .bg-ganadero-dark { background-color: #0d3b2e; }
+        .text-ganadero-dark { color: #0d3b2e; }
+        .active-nav { background-color: #165c48; }
+    </style>
+</head>
+<body class="bg-gray-50 h-screen flex font-sans">
+
+
+    <aside class="w-64 bg-ganadero-dark text-white flex flex-col shadow-lg z-10 flex-shrink-0">
+        <div class="p-6"><h2 class="text-2xl font-bold tracking-wider">SGT-Ganadero</h2></div>
+        <nav class="flex-1 px-4 space-y-2 mt-4">
+            <a href="dashboard_admin.html" class="flex items-center gap-3 px-4 py-3 hover:bg-white/10 rounded-lg text-sm transition-colors text-gray-300">
+                <span>🐾</span> Hacienda
+            </a>
+            <a href="parcelas.html" class="flex items-center gap-3 px-4 py-3 active-nav rounded-lg text-sm font-medium transition-colors">
+                <span>📍</span> Parcelas
+            </a>
+            <a href="sanidad.html" class="flex items-center gap-3 px-4 py-3 hover:bg-white/10 rounded-lg text-sm transition-colors text-gray-300">
+                <span>⚕️</span> Sanidad
+            </a>
+        </nav>
+        <div class="p-4 border-t border-white/10">
+            <button onclick="window.location.href='index.html'" class="w-full flex items-center gap-3 px-4 py-2 hover:bg-red-500/20 text-gray-300 rounded-lg text-sm text-left">🚪 Cerrar Sesión</button>
+        </div>
+    </aside>
+
+    <main class="flex-1 flex flex-col overflow-hidden">
+        <header class="bg-white border-b border-gray-200 h-16 flex items-center justify-between px-8 shadow-sm">
+            <h1 class="font-bold text-gray-800 text-lg">Listado de Parcelas</h1>
+            <button class="bg-ganadero-dark text-white px-5 py-2 rounded shadow hover:bg-green-800 transition-colors text-sm font-medium">
+                + REGISTRAR PARCELA
+            </button>
+        </header>
+
+        <div class="flex-1 overflow-auto p-8">
+            <div class="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden">
+                <table class="w-full text-left border-collapse">
+                    <thead>
+                        <tr class="bg-gray-50 text-gray-500 text-xs uppercase tracking-wider border-b border-gray-200">
+                            <th class="p-4 font-semibold">ID Parcela</th>
+                            <th class="p-4 font-semibold">Tipo de Forraje</th>
+                            <th class="p-4 font-semibold">Estado</th>
+                            <th class="p-4 font-semibold">Animales</th>
+                            <th class="p-4 font-semibold text-center">Acciones</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-sm divide-y divide-gray-100">
+                        <tr class="hover:bg-gray-50 transition-colors">
+                            <td class="p-4 font-bold text-gray-800">PR-001</td>
+                            <td class="p-4 text-gray-600">Alfalfa Premium</td>
+                            <td class="p-4"><span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded font-bold border border-green-200">ACTIVA</span></td>
+                            <td class="p-4 text-gray-800 font-bold">45</td>
+                            <td class="p-4 text-center space-x-2 text-gray-400">
+                                <button class="hover:text-blue-500" title="Ver Ocupación">👁️</button>
+                                <button class="hover:text-yellow-500" title="Editar">✏️</button>
+                                <button class="hover:text-orange-500" title="Suspender">⏸️</button>
+                            </td>
+                        </tr>
+                        <tr class="hover:bg-gray-50 transition-colors bg-orange-50/30">
+                            <td class="p-4 font-bold text-gray-800">PR-002</td>
+                            <td class="p-4 text-gray-600">Avena Forrajera</td>
+                            <td class="p-4"><span class="bg-orange-100 text-orange-800 text-xs px-2 py-1 rounded font-bold border border-orange-200">SUSPENDIDA</span></td>
+                            <td class="p-4 text-gray-400">0</td>
+                            <td class="p-4 text-center space-x-2 text-gray-400">
+                                <button class="hover:text-blue-500" title="Ver Ocupación">👁️</button>
+                                <button class="hover:text-yellow-500" title="Editar">✏️</button>
+                                <button class="hover:text-green-500" title="Activar">▶️</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </main>
+</body>
+</html>
