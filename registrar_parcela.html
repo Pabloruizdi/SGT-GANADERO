@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>SGT-Ganadero - Registrar Parcela</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <style>
+        .bg-ganadero-dark { background-color: #0d3b2e; }
+        .text-ganadero-dark { color: #0d3b2e; }
+        .active-nav { background-color: #165c48; }
+    </style>
+</head>
+<body class="bg-gray-50 h-screen flex font-sans overflow-hidden">
+
+    <div id="alertaSistema" class="fixed top-8 right-8 bg-white border-l-4 border-[#0d3b2e] shadow-xl rounded-r-md px-6 py-4 flex items-center gap-4 transition-all duration-500 transform translate-x-[150%] opacity-0 z-50">
+        <div class="bg-green-100 p-1.5 rounded-full flex-shrink-0">
+            <svg class="w-5 h-5 text-[#0d3b2e]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+        </div>
+        <div>
+            <h4 class="text-gray-800 font-bold text-sm">Registro Exitoso</h4>
+            <p class="text-gray-500 text-xs">La parcela ha sido creada correctamente.</p>
+        </div>
+    </div>
+
+    <aside class="w-64 bg-ganadero-dark text-white flex flex-col shadow-lg z-10 flex-shrink-0">
+        <div class="p-6">
+            <h2 class="text-2xl font-bold tracking-wider">SGT-Ganadero</h2>
+        </div>
+        
+        <div class="px-6 py-4 flex items-center gap-3 mb-4">
+            <div class="w-10 h-10 bg-gray-300 rounded-full overflow-hidden flex-shrink-0">
+                <img src="https://ui-avatars.com/api/?name=Admin&background=random" alt="Admin" class="w-full h-full object-cover">
+            </div>
+            <div>
+                <p class="text-sm font-semibold">Administrador</p>
+                <p class="text-xs text-gray-400">Rancho Central</p>
+            </div>
+        </div>
+
+        <nav class="flex-1 px-4 space-y-2 mt-4">
+    <a href="dashboard_admin.html" class="flex items-center gap-3 px-4 py-3 hover:bg-white/10 rounded-lg text-sm font-medium transition-colors text-gray-300 hover:text-white">
+        <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 012-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path></svg>
+        Hacienda
+    </a>
+    <a href="parcelas.html" class="flex items-center gap-3 px-4 py-3 active-nav rounded-lg text-sm font-medium transition-colors">
+        <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+        Parcelas
+    </a>
+    <a href="sanidad.html" class="flex items-center gap-3 px-4 py-3 hover:bg-white/10 rounded-lg text-sm font-medium transition-colors text-gray-300 hover:text-white">
+        <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+        Sanidad
+    </a>
+    <a href="reportes.html" class="flex items-center gap-3 px-4 py-3 hover:bg-white/10 rounded-lg text-sm font-medium transition-colors text-gray-300 hover:text-white">
+        <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 002 2h2a2 2 0 002-2z"></path></svg>
+        Reportes
+    </a>
+</nav>
+        <div class="p-4 space-y-2 border-t border-white/10">
+            <a href="#" class="flex items-center gap-3 px-4 py-2 hover:bg-white/10 rounded-lg text-sm text-gray-300 transition-colors">
+                <span>⚙️</span> Configuración
+            </a>
+            <button onclick="logout()" class="w-full flex items-center gap-3 px-4 py-2 hover:bg-red-500/20 hover:text-red-300 rounded-lg text-sm text-gray-300 transition-colors text-left">
+                <span>🚪</span> Cerrar Sesión
+            </button>
+        </div>
+    </aside>
+
+    <main class="flex-1 flex flex-col overflow-hidden">
+        
+        <header class="bg-white border-b border-gray-200 h-16 flex items-center justify-between px-8 shadow-sm">
+            <div class="flex items-center gap-2 text-sm text-gray-500">
+                <a href="parcelas.html" class="hover:text-ganadero-dark transition-colors">Parcelas</a> 
+                <span>/</span> 
+                <span class="text-gray-800 font-semibold">Registrar Parcela</span>
+            </div>
+    
+            <div class="flex items-center gap-4">
+                <button class="text-gray-400 hover:text-gray-600">🔔</button>
+                <button class="text-gray-400 hover:text-gray-600 text-lg">⚙️</button>
+                <div class="w-8 h-8 bg-gray-200 rounded-full overflow-hidden border border-gray-300">
+                    <img src="https://ui-avatars.com/api/?name=Admin" alt="User">
+                </div>
+            </div>
+        </header>
+
+        <div class="flex-1 overflow-auto p-12">
+            <div class="max-w-3xl">
+
+                <div class="mb-6">
+                    <a href="parcelas.html" class="inline-flex items-center gap-2 text-sm font-medium text-gray-600 hover:text-ganadero-dark transition-colors bg-white px-4 py-2 rounded-lg border border-gray-200 shadow-sm hover:shadow">
+                        <span class="text-lg leading-none">←</span> Volver al listado
+                    </a>
+                </div>
+                
+                <h1 class="text-3xl font-bold text-[#0d3b2e] mb-2">Registrar Parcela</h1>
+                <p class="text-gray-500 mb-8">Complete los datos técnicos para dar de alta una nueva unidad de pastoreo.</p>
+
+                <div class="bg-white rounded-md shadow-sm border border-gray-200 p-8">
+                    <form onsubmit="simularGuardado(event)" class="space-y-6">
+                        
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700 mb-2">ID / Número de parcela</label>
+                            <input type="text" required placeholder="Ej: P-204" class="w-full border border-gray-300 rounded p-2.5 text-sm focus:border-green-800 focus:ring-1 focus:ring-green-800 outline-none transition-all">
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700 mb-2">Tipo de forraje</label>
+                            <select class="w-full border border-gray-300 rounded p-2.5 text-sm focus:border-green-800 outline-none bg-white text-gray-600">
+                                <option value="" disabled selected>Seleccione un tipo</option>
+                                <option value="alfalfa">Alfalfa Premium</option>
+                                <option value="avena">Avena Forrajera</option>
+                                <option value="sorgo">Sorgo Granífero</option>
+                                <option value="pasto">Pasto Natural</option>
+                            </select>
+                        </div>
+
+                        <div>
+                            <label class="block text-sm font-bold text-gray-700 mb-4">Estado inicial</label>
+                            <div class="flex gap-8">
+                                <label class="flex items-center gap-2 cursor-pointer group">
+                                    <input type="radio" name="estado" value="activa" class="accent-green-800 w-4 h-4" checked>
+                                    <span class="text-sm text-gray-700">Activa</span>
+                                </label>
+                                <label class="flex items-center gap-2 cursor-pointer group">
+                                    <input type="radio" name="estado" value="suspendida" class="accent-green-800 w-4 h-4">
+                                    <span class="text-sm text-gray-700">Suspendida</span>
+                                </label>
+                            </div>
+                        </div>
+
+                        <div class="flex gap-4 pt-6">
+                            <button type="submit" class="px-10 py-2.5 bg-ganadero-dark text-white rounded font-bold text-sm hover:bg-[#0a2e24] transition-all shadow-md">
+                                GUARDAR
+                            </button>
+                            <a href="parcelas.html" class="px-10 py-2.5 border border-gray-400 text-gray-600 rounded font-bold text-sm hover:bg-gray-50 transition-all text-center">
+                                CANCELAR
+                            </a>
+                        </div>
+
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <script>
+        function simularGuardado(e) {
+            e.preventDefault(); 
+            
+            const alerta = document.getElementById('alertaSistema');
+            
+            // Animación de entrada
+            alerta.classList.remove('translate-x-[150%]', 'opacity-0');
+            alerta.classList.add('translate-x-0', 'opacity-100');
+            
+            // Redirección tras 2 segundos
+            setTimeout(() => {
+                window.location.href = "parcelas.html";
+            }, 2000);
+        }
+
+        function logout() {
+            sessionStorage.removeItem('sgt_role');
+            window.location.href = 'index.html';
+        }
+    </script>
+</body>
+</html>

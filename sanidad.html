@@ -9,66 +9,280 @@
         .bg-ganadero-dark { background-color: #0d3b2e; }
         .text-ganadero-dark { color: #0d3b2e; }
         .active-nav { background-color: #165c48; }
+        /* Clases para manejar las pestañas */
+        .tab-content { display: none; }
+        .tab-content.active { display: block; }
     </style>
 </head>
-<body class="bg-gray-50 h-screen flex font-sans">
+<body class="bg-gray-50 h-screen flex font-sans overflow-hidden">
+
+    <div id="alertaSistema" class="fixed top-8 right-8 bg-white border-l-4 border-[#0d3b2e] shadow-xl rounded-r-md px-6 py-4 flex items-center gap-4 transition-all duration-500 transform translate-x-[150%] opacity-0 z-50">
+        <div class="bg-green-100 p-1.5 rounded-full flex-shrink-0">
+            <svg class="w-5 h-5 text-[#0d3b2e]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 13l4 4L19 7"></path></svg>
+        </div>
+        <div>
+            <h4 id="alertaTitulo" class="text-gray-800 font-bold text-sm">Operación Exitosa</h4>
+            <p id="alertaMensaje" class="text-gray-500 text-xs">El registro sanitario ha sido actualizado.</p>
+        </div>
+    </div>
 
     <aside class="w-64 bg-ganadero-dark text-white flex flex-col shadow-lg z-10 flex-shrink-0">
-        <div class="p-6"><h2 class="text-2xl font-bold tracking-wider">SGT-Ganadero</h2></div>
-        <nav class="flex-1 px-4 space-y-2 mt-4">
-            <a href="dashboard_admin.html" class="flex items-center gap-3 px-4 py-3 hover:bg-white/10 rounded-lg text-sm transition-colors text-gray-300"><span>🐾</span> Hacienda</a>
-            <a href="parcelas.html" class="flex items-center gap-3 px-4 py-3 hover:bg-white/10 rounded-lg text-sm transition-colors text-gray-300"><span>📍</span> Parcelas</a>
-            <a href="sanidad.html" class="flex items-center gap-3 px-4 py-3 active-nav rounded-lg text-sm font-medium transition-colors"><span>⚕️</span> Sanidad</a>
-        </nav>
-        <div class="p-4 border-t border-white/10">
-            <button onclick="window.location.href='index.html'" class="w-full flex items-center gap-3 px-4 py-2 hover:bg-red-500/20 text-gray-300 rounded-lg text-sm text-left">🚪 Cerrar Sesión</button>
+    <div class="p-6">
+        <h2 class="text-2xl font-bold tracking-wider">SGT-Ganadero</h2>
+    </div>
+    
+    <div class="px-6 py-4 flex items-center gap-3 mb-4">
+        <div class="w-10 h-10 bg-gray-300 rounded-full overflow-hidden flex-shrink-0">
+            <img src="https://ui-avatars.com/api/?name=Admin&background=random" alt="Admin" class="w-full h-full object-cover">
         </div>
-    </aside>
+        <div>
+            <p class="text-sm font-semibold">Administrador</p>
+            <p class="text-xs text-gray-400">Rancho Central</p>
+        </div>
+    </div>
+
+    <nav class="flex-1 px-4 space-y-2 mt-4">
+    <a href="dashboard_admin.html" class="flex items-center gap-3 px-4 py-3 hover:bg-white/10 rounded-lg text-sm font-medium transition-colors text-gray-300 hover:text-white">
+        <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 012-2M9 5a2 2 0 012-2h2a2 2 0 012 2m-3 7h3m-3 4h3m-6-4h.01M9 16h.01"></path></svg>
+        Hacienda
+    </a>
+    <a href="parcelas.html" class="flex items-center gap-3 px-4 py-3 hover:bg-white/10 rounded-lg text-sm font-medium transition-colors text-gray-300 hover:text-white">
+        <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"></path><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>
+        Parcelas
+    </a>
+    <a href="sanidad.html" class="flex items-center gap-3 px-4 py-3 active-nav rounded-lg text-sm font-medium transition-colors">
+        <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 13.255A23.931 23.931 0 0112 15c-3.183 0-6.22-.62-9-1.745M16 6V4a2 2 0 00-2-2h-4a2 2 0 00-2 2v2m4 6h.01M5 20h14a2 2 0 002-2V8a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"></path></svg>
+        Sanidad
+    </a>
+    <a href="reportes.html" class="flex items-center gap-3 px-4 py-3 hover:bg-white/10 rounded-lg text-sm font-medium transition-colors text-gray-300 hover:text-white">
+        <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 002 2h2a2 2 0 002-2z"></path></svg>
+        Reportes
+    </a>
+</nav>
+
+    <div class="p-4 space-y-2 border-t border-white/10">
+        <a href="#" class="flex items-center gap-3 px-4 py-2 hover:bg-white/10 rounded-lg text-sm text-gray-300 hover:text-white transition-colors">
+            <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"></path>
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"></path>
+            </svg>
+            Configuración
+        </a>
+        
+        <button onclick="logout()" class="w-full flex items-center gap-3 px-4 py-2 hover:bg-red-500/20 hover:text-red-300 rounded-lg text-sm text-gray-300 transition-colors text-left">
+            <svg class="w-5 h-5 flex-shrink-0" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M17 16l4-4m0 0l-4-4m4 4H7m6 4v1a3 3 0 01-3 3H6a3 3 0 01-3-3V7a3 3 0 013-3h4a3 3 0 013 3v1"></path>
+            </svg>
+            Cerrar Sesión
+        </button>
+    </div>
+</aside>
 
     <main class="flex-1 flex flex-col overflow-hidden">
+        
         <header class="bg-white border-b border-gray-200 h-16 flex items-center justify-between px-8 shadow-sm">
-            <h1 class="font-bold text-gray-800 text-lg">Sanidad Animal</h1>
+            <div class="flex items-center gap-2 text-sm text-gray-500">
+                <span class="text-gray-800 font-semibold text-lg">Gestión Sanitaria</span>
+            </div>
+            <div class="flex items-center gap-4">
+                <button class="text-gray-400 hover:text-gray-600">🔔</button>
+                <button class="text-gray-400 hover:text-gray-600 text-lg">⚙️</button>
+                <div class="w-8 h-8 bg-gray-200 rounded-full overflow-hidden border border-gray-300">
+                    <img src="https://ui-avatars.com/api/?name=Admin" alt="User">
+                </div>
+            </div>
         </header>
 
         <div class="flex-1 overflow-auto p-8">
+            
             <div class="border-b border-gray-200 mb-6 flex gap-8 text-sm font-medium">
-                <button class="pb-3 border-b-2 border-ganadero-dark text-ganadero-dark">Registrar Tratamiento</button>
-                <button class="pb-3 text-gray-500 hover:text-gray-800 transition-colors">Registrar Vacunación</button>
-                <button class="pb-3 text-gray-500 hover:text-gray-800 transition-colors">Consultar Historial</button>
+                <button onclick="cambiarTab('historial', this)" class="tab-btn pb-3 border-b-2 border-ganadero-dark text-ganadero-dark">Consultar Historial</button>
+                <button onclick="cambiarTab('tratamiento', this)" class="tab-btn pb-3 border-b-2 border-transparent text-gray-500 hover:text-gray-800 transition-colors">Registrar Tratamiento</button>
+                <button onclick="cambiarTab('vacunacion', this)" class="tab-btn pb-3 border-b-2 border-transparent text-gray-500 hover:text-gray-800 transition-colors">Registrar Vacunación</button>
             </div>
 
-            <div class="bg-white rounded-lg shadow-sm border border-gray-100 p-8 max-w-3xl">
-                <div class="grid grid-cols-2 gap-6 mb-6">
-                    <div>
-                        <label class="block text-sm font-bold text-gray-700 mb-2">Seleccionar Animales</label>
-                        <input type="text" placeholder="ID o nombre del animal..." class="w-full border border-gray-300 rounded p-2 text-sm outline-none focus:border-green-700">
-                        <div class="mt-2 flex gap-2">
-                            <span class="bg-green-100 text-green-800 text-xs px-2 py-1 rounded flex items-center gap-1">V-098 <button>×</button></span>
-                        </div>
-                    </div>
-                    <div>
-                        <label class="block text-sm font-bold text-gray-700 mb-2">Fecha de Inicio</label>
-                        <input type="date" class="w-full border border-gray-300 rounded p-2 text-sm outline-none focus:border-green-700">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-bold text-gray-700 mb-2">Tipo de Tratamiento</label>
-                        <input type="text" placeholder="Ej: Desparasitación" class="w-full border border-gray-300 rounded p-2 text-sm outline-none focus:border-green-700">
-                    </div>
-                    <div>
-                        <label class="block text-sm font-bold text-gray-700 mb-2">Producto / Medicamento</label>
-                        <input type="text" placeholder="Nombre del fármaco" class="w-full border border-gray-300 rounded p-2 text-sm outline-none focus:border-green-700">
+            <div id="tab-historial" class="tab-content active">
+                
+                <div class="flex justify-between items-center mb-4">
+                    <div class="relative">
+                        <input type="text" placeholder="Buscar por ID Caravana..." class="bg-white border border-gray-200 text-sm rounded-md pl-10 pr-4 py-2 focus:ring-1 focus:ring-green-800 outline-none w-64 shadow-sm">
+                        <span class="absolute left-3 top-2.5 text-gray-400">🔍</span>
                     </div>
                 </div>
-                <div class="mb-6">
-                    <label class="block text-sm font-bold text-gray-700 mb-2">Notas Adicionales</label>
-                    <textarea rows="3" placeholder="Observaciones técnicas o dosis específica..." class="w-full border border-gray-300 rounded p-2 text-sm outline-none focus:border-green-700"></textarea>
-                </div>
-                <div class="flex justify-end gap-4">
-                    <button class="px-6 py-2 border border-gray-300 text-gray-700 rounded text-sm font-medium hover:bg-gray-50">Cancelar</button>
-                    <button class="px-6 py-2 bg-ganadero-dark text-white rounded text-sm font-medium hover:bg-green-800" onclick="alert('Tratamiento Registrado')">Guardar Tratamiento</button>
+
+                <div class="bg-white rounded-lg shadow-sm border border-gray-100 overflow-hidden">
+                    <table class="w-full text-left border-collapse">
+                        <thead>
+                            <tr class="bg-gray-50 text-gray-500 text-xs uppercase tracking-wider border-b border-gray-200">
+                                <th class="p-4 font-semibold">Fecha</th>
+                                <th class="p-4 font-semibold">ID Animal</th>
+                                <th class="p-4 font-semibold">Tipo</th>
+                                <th class="p-4 font-semibold">Producto / Diagnóstico</th>
+                                <th class="p-4 font-semibold">Estado</th>
+                                <th class="p-4 font-semibold text-center">Acciones</th>
+                            </tr>
+                        </thead>
+                        <tbody class="text-sm divide-y divide-gray-100">
+                            <tr class="hover:bg-gray-50">
+                                <td class="p-4 text-gray-600">25/06/2026</td>
+                                <td class="p-4 font-bold text-gray-800">AR-99321</td>
+                                <td class="p-4"><span class="bg-blue-100 text-blue-800 text-xs px-2 py-1 rounded font-bold">TRATAMIENTO</span></td>
+                                <td class="p-4 text-gray-600">Ivermectina - Desparasitación</td>
+                                <td class="p-4"><span class="text-green-600 font-bold text-xs">EN CURSO</span></td>
+                                <td class="p-4 text-center space-x-3 text-gray-400">
+                                    <button onclick="mostrarNotificacion('Registro Abierto', 'Modificando datos del tratamiento.')" class="hover:text-yellow-500" title="Modificar Registro">✏️</button>
+                                    <button onclick="mostrarNotificacion('Tratamiento Suspendido', 'Se ha interrumpido la medicación.')" class="hover:text-red-500" title="Suspender Tratamiento">⏸️</button>
+                                </td>
+                            </tr>
+                            <tr class="hover:bg-gray-50">
+                                <td class="p-4 text-gray-600">10/05/2026</td>
+                                <td class="p-4 font-bold text-gray-800">AR-99325</td>
+                                <td class="p-4"><span class="bg-purple-100 text-purple-800 text-xs px-2 py-1 rounded font-bold">VACUNACIÓN</span></td>
+                                <td class="p-4 text-gray-600">Vacuna Aftosa (Campaña 1)</td>
+                                <td class="p-4"><span class="text-gray-500 font-bold text-xs">FINALIZADO</span></td>
+                                <td class="p-4 text-center space-x-3 text-gray-400">
+                                    <button onclick="mostrarNotificacion('Registro Abierto', 'Modificando datos de la vacunación.')" class="hover:text-yellow-500" title="Modificar Registro">✏️</button>
+                                    <span class="opacity-30 cursor-not-allowed">⏸️</span>
+                                </td>
+                            </tr>
+                        </tbody>
+                    </table>
                 </div>
             </div>
+
+            <div id="tab-tratamiento" class="tab-content">
+                <div class="bg-white rounded-lg shadow-sm border border-gray-100 p-8 max-w-3xl">
+                    <h2 class="text-xl font-bold text-gray-800 mb-6 border-b pb-2">Nuevo Tratamiento Clínico</h2>
+                    <form onsubmit="simularGuardado(event, 'Tratamiento')">
+                        <div class="grid grid-cols-2 gap-6 mb-6">
+                            <div>
+                                <label class="block text-sm font-bold text-gray-700 mb-2">Seleccionar Animal(es) *</label>
+                                <input type="text" required placeholder="ID de caravana..." class="w-full border border-gray-300 rounded p-2.5 text-sm outline-none focus:border-green-700 focus:ring-1 focus:ring-green-700">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-bold text-gray-700 mb-2">Fecha de Inicio *</label>
+                                <input type="date" required class="w-full border border-gray-300 rounded p-2.5 text-sm outline-none focus:border-green-700">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-bold text-gray-700 mb-2">Diagnóstico / Motivo *</label>
+                                <input type="text" required placeholder="Ej: Infección ocular" class="w-full border border-gray-300 rounded p-2.5 text-sm outline-none focus:border-green-700">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-bold text-gray-700 mb-2">Producto / Medicamento</label>
+                                <input type="text" placeholder="Nombre del fármaco" class="w-full border border-gray-300 rounded p-2.5 text-sm outline-none focus:border-green-700">
+                            </div>
+                        </div>
+                        <div class="mb-6">
+                            <label class="block text-sm font-bold text-gray-700 mb-2">Dosis y Notas Adicionales</label>
+                            <textarea rows="3" placeholder="Frecuencia, dosis específica, días de retiro..." class="w-full border border-gray-300 rounded p-2 text-sm outline-none focus:border-green-700 focus:ring-1 focus:ring-green-700"></textarea>
+                        </div>
+                        <div class="flex justify-end gap-4">
+                            <button type="button" onclick="cambiarTab('historial', document.querySelector('.tab-btn'))" class="px-6 py-2 border border-gray-300 text-gray-700 rounded text-sm font-medium hover:bg-gray-50 transition">Cancelar</button>
+                            <button type="submit" class="px-6 py-2 bg-ganadero-dark text-white rounded text-sm font-medium hover:bg-[#0a2e24] transition shadow">Guardar Tratamiento</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
+            <div id="tab-vacunacion" class="tab-content">
+                <div class="bg-white rounded-lg shadow-sm border border-gray-100 p-8 max-w-3xl">
+                    <h2 class="text-xl font-bold text-gray-800 mb-6 border-b pb-2">Nueva Campaña de Vacunación</h2>
+                    <form onsubmit="simularGuardado(event, 'Vacunación')">
+                        <div class="grid grid-cols-2 gap-6 mb-6">
+                            <div class="col-span-2">
+                                <label class="block text-sm font-bold text-gray-700 mb-2">Aplicar a:</label>
+                                <select class="w-full border border-gray-300 rounded p-2.5 text-sm outline-none focus:border-green-700 bg-white">
+                                    <option>Todo el rodeo (Aplicación masiva)</option>
+                                    <option>Lote específico (Seleccionar parcela)</option>
+                                    <option>Animales individuales</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-bold text-gray-700 mb-2">Tipo de Vacuna *</label>
+                                <select required class="w-full border border-gray-300 rounded p-2.5 text-sm outline-none focus:border-green-700 bg-white">
+                                    <option value="" disabled selected>Seleccione vacuna...</option>
+                                    <option>Aftosa</option>
+                                    <option>Brucelosis</option>
+                                    <option>Carbunclo</option>
+                                </select>
+                            </div>
+                            <div>
+                                <label class="block text-sm font-bold text-gray-700 mb-2">Fecha de Aplicación *</label>
+                                <input type="date" required class="w-full border border-gray-300 rounded p-2.5 text-sm outline-none focus:border-green-700">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-bold text-gray-700 mb-2">Veterinario Responsable</label>
+                                <input type="text" placeholder="Nombre o Matrícula" class="w-full border border-gray-300 rounded p-2.5 text-sm outline-none focus:border-green-700">
+                            </div>
+                            <div>
+                                <label class="block text-sm font-bold text-gray-700 mb-2">Próxima Dosis (Vencimiento)</label>
+                                <input type="date" class="w-full border border-gray-300 rounded p-2.5 text-sm outline-none focus:border-green-700 text-gray-500">
+                            </div>
+                        </div>
+                        <div class="flex justify-end gap-4 mt-8 border-t pt-6">
+                            <button type="button" onclick="cambiarTab('historial', document.querySelector('.tab-btn'))" class="px-6 py-2 border border-gray-300 text-gray-700 rounded text-sm font-medium hover:bg-gray-50 transition">Cancelar</button>
+                            <button type="submit" class="px-6 py-2 bg-purple-700 text-white rounded text-sm font-medium hover:bg-purple-800 transition shadow">Registrar Vacunación</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+
         </div>
     </main>
+
+    <script>
+        // Lógica para cambiar entre las 3 pestañas
+        function cambiarTab(tabId, elementoBoton) {
+            // 1. Ocultar todos los contenidos
+            document.querySelectorAll('.tab-content').forEach(tab => {
+                tab.classList.remove('active');
+            });
+            // 2. Mostrar el contenido seleccionado
+            document.getElementById('tab-' + tabId).classList.add('active');
+
+            // 3. Reiniciar el estilo de todos los botones
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('border-ganadero-dark', 'text-ganadero-dark');
+                btn.classList.add('border-transparent', 'text-gray-500');
+            });
+            
+            // 4. Activar el estilo del botón clickeado
+            elementoBoton.classList.remove('border-transparent', 'text-gray-500');
+            elementoBoton.classList.add('border-ganadero-dark', 'text-ganadero-dark');
+        }
+
+        // Lógica para Guardar Formulario (Tratamiento o Vacunación)
+        function simularGuardado(e, tipo) {
+            e.preventDefault(); 
+            mostrarNotificacion('Registro Exitoso', `El registro de ${tipo} fue guardado correctamente en el historial.`);
+            
+            // Volver a la pestaña historial después de 1.5 seg
+            setTimeout(() => {
+                cambiarTab('historial', document.querySelector('.tab-btn'));
+                e.target.reset(); // Limpia el formulario
+            }, 1500);
+        }
+
+        // Sistema unificado de alertas (Toast)
+        function mostrarNotificacion(titulo, mensaje) {
+            const alerta = document.getElementById('alertaSistema');
+            document.getElementById('alertaTitulo').innerText = titulo;
+            document.getElementById('alertaMensaje').innerText = mensaje;
+            
+            alerta.classList.remove('translate-x-[150%]', 'opacity-0');
+            alerta.classList.add('translate-x-0', 'opacity-100');
+            
+            // Ocultar alerta después de 3 segundos
+            setTimeout(() => {
+                alerta.classList.remove('translate-x-0', 'opacity-100');
+                alerta.classList.add('translate-x-[150%]', 'opacity-0');
+            }, 3000);
+        }
+
+        function logout() {
+            sessionStorage.removeItem('sgt_role');
+            window.location.href = 'index.html';
+        }
+    </script>
 </body>
 </html>
